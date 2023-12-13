@@ -9,10 +9,10 @@ const port = 8000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post('http://localhost:8000/update-credentials', (req, res) => {
+app.post('/update-credentials', (req, res) => {
     const { ssid, password } = req.body;
     const data = { ssid, password };
-    fs.writeFileSync('./backend/data.json', JSON.stringify(data));
+    fs.writeFileSync('./data.json', JSON.stringify(data));
 
     res.json({ message: 'Credentials updated successfully' });
 });
