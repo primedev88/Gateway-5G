@@ -1,0 +1,505 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+*{
+  margin: 0;
+}
+.main_screen{
+  background-color: #09283E;
+  height: 100vh;
+  width: 100vw;
+}
+.blur-background{
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  background-color: #09283E;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 1vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.modal .hotspot-settings{
+  background-color: #2C5274;
+  height: 70vh;
+  width: 35vw;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal .hotspot-settings .cancel{
+  margin-left: 55vh;
+  background-color: #628EB5;
+  height: 6vh;
+  width: 6vh;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.modal .hotspot-settings .SSID{
+  background-color: #628EB5;
+  height: 15vh;
+  width: 30vw;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.modal .hotspot-settings .SSID .txt{
+  font-family: 'Ubuntu',sans-serif;
+  color: #FFFFFF;
+  font-size: 21px;
+}
+.modal .hotspot-settings .SSID #ssidInput{
+  border: none;
+  box-sizing: border-box;
+  background-color: #D0FFFC;
+  color: #628EB5;
+  font-family: 'Ubuntu',sans-serif;
+  font-size: 22px;
+  margin-left: 1vh;
+  border-radius: 10px;
+  height: 10vh;
+  width: 22vw;
+}
+.modal .hotspot-settings .SSID #ssidInput:focus{
+  outline: none;
+}
+.modal .hotspot-settings .Password{
+  background-color: #628EB5;
+  height: 15vh;
+  width: 30vw;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.modal .hotspot-settings .Password .txt{
+  font-family: 'Ubuntu',sans-serif;
+  color: #FFFFFF;
+  font-size: 21px;
+}
+.modal .hotspot-settings .Password .input-hidco{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #D0FFFC;
+  margin: 2vh;
+  width: 24vw;
+  border-radius: 12px;
+}
+.modal .hotspot-settings .Password #passwordInput{
+  border: none;
+  background-color: #D0FFFC;
+  color: #628EB5;
+  font-family: 'Ubuntu',sans-serif;
+  font-size: 22px;
+  border-radius: 10px;
+  height: 10vh;
+  width: 19vw;
+}
+.modal .hotspot-settings .Password #passwordInput:focus{
+  outline: none;
+}
+.modal .hotspot-settings .Password .eye{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 3vw;
+}
+.modal .hotspot-settings .Submit{
+  background-color: #628EB5;
+  height: 10vh;
+  width: 12vw;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Ubuntu',sans-serif;
+  color: #FFFFFF;
+  font-size: 21px;
+  margin-bottom: 1vh;
+}
+.screen1{
+  background-color: #09283E;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 1vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.nr-5g{
+  height: 20vh;
+  width: 90vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.nr-5g .info-5g{
+  background-color: #2C5274;
+  height: 100%;
+  width: 72vw;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.nr-5g .info-5g .logo{
+  height: 100%;
+  width: 8vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.nr-5g .info-5g .connect{
+  height: 6vh;
+  width: 9vw;
+  border-radius: 5px;
+  color: #4A609A;
+  font-family: 'Ubuntu',sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.nr-5g .info-5g .info{
+  background-color: #628EB5;
+  height: 15vh;
+  width: 45vw;
+  border-radius:5px;
+}
+.nr-5g .set-hotspot{
+  height: 100%;
+  width: 16vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.nr-5g .set-hotspot .settings{
+  background-color: #2C5274;
+  height: 11vh;
+  width: 11vh;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.nr-5g .set-hotspot .hotspot{
+  background-color: #2C5274;
+  height: 11vh;
+  width: 11vh;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.wifi-nodes{
+  background-color: #2C5274;
+  box-sizing: border-box;
+  padding: 8px;
+  height: 29vh;
+  width: 90vw;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.wifi-nodes .txt-rem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.wifi-nodes .txt-rem .txt{
+  color: white;
+  font-family: 'Ubuntu',sans-serif;
+  font-weight: bold;
+}
+.wifi-nodes .txt-rem .rem{
+  background-color: #628EB5;
+  border-radius: 4px;
+  height: 5.5vh;
+  width: 8.5vw;
+  color: #FFFFFF;
+  font-size: 21px;
+  font-family: 'Ubuntu',sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider{
+  margin-top: 2px;
+  height: 16vh;
+  width: 88vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node1{
+  height: 16vh;
+  width: 38vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node1 .node1{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node1 .node2{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node1 .node3{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node1 .node4{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .divider{
+  background-color: #B6D1EA;
+  height: 15vh;
+  width: 1vh;
+  border-radius: 3px;
+}
+.wifi-nodes .nodes-divider .w-node2{
+  height: 16vh;
+  width: 38vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node2 .node1{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node2 .node2{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node2 .node3{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wifi-nodes .nodes-divider .w-node2 .node4{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes{
+  background-color: #2C5274;
+  box-sizing: border-box;
+  padding: 8px;
+  height: 29vh;
+  width: 90vw;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.lora-nodes .txt-rem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.lora-nodes .txt-rem .txt{
+  color: white;
+  font-family: 'Ubuntu',sans-serif;
+  font-weight: bold;
+}
+.lora-nodes .txt-rem .rem{
+  background-color: #628EB5;
+  border-radius: 4px;
+  height: 5.5vh;
+  width: 8.5vw;
+  color: #FFFFFF;
+  font-size: 21px;
+  font-family: 'Ubuntu',sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider{
+  margin-top: 2px;
+  height: 16vh;
+  width: 88vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node1{
+  height: 16vh;
+  width: 38vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node1 .node1{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node1 .node2{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node1 .node3{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node1 .node4{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .divider{
+  background-color: #B6D1EA;
+  height: 15vh;
+  width: 1vh;
+  border-radius: 3px;
+}
+.lora-nodes .nodes-divider .l-node2{
+  height: 16vh;
+  width: 38vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node2 .node1{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node2 .node2{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node2 .node3{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.lora-nodes .nodes-divider .l-node2 .node4{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
