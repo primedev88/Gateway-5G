@@ -25,7 +25,7 @@ const App = () => {
 
   const handleSubmit = ()=>{
     // Send the data to the backend
-    fetch('http://localhost:8000/update-credentials', {
+    fetch('http://192.168.137.1:8000/update-credentials', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

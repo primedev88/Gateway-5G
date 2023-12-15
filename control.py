@@ -19,7 +19,7 @@ def create_hotspot(ssid, password):
         print('Error:', e)
 
 if __name__ == "__main__":
-    json_data = read_json('./backend/data.json')
+    json_data = read_json('data.json')
     
     ssid = json_data.get('ssid', '')
     password = json_data.get('password', '')
