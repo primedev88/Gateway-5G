@@ -34,11 +34,11 @@ const App = () => {
   })
   .then(response => response.json())
   .then(data => {
-      console.log('Success:', data);
+      alert('Success:', data);
       // You can add additional logic here based on the response from the server
   })
   .catch((error) => {
-      console.error('Error:', error);
+      alert('Error:', error);
   });
   }
   
