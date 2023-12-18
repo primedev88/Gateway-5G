@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.post('/update-credentials', (req, res) => {
     const { ssid, password } = req.body;
     const data = { ssid, password };
-    fs.writeFileSync('./ data.json', JSON.stringify(data));
+    fs.writeFileSync('./data.json', JSON.stringify(data));
 
     res.json({ message: 'Credentials updated successfully' });
 });

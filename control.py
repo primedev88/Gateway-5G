@@ -15,15 +15,19 @@ def turn_on_hotspot(ssid, password):
         print(f'Error turning on hotspot: {e}')
 
 if __name__ == "__main__":
-    json_data = read_json('./backend/data.json')
+    ssid_old=""
+    password_old=""
+    while(1):
+        json_data = read_json('./backend/data.json')
     
-    ssid = json_data.get('ssid', '')
-    password = json_data.get('password', '')
-
-    if ssid and password:
-        turn_on_hotspot(ssid, password)
-    else:
-        print('SSID or password missing in the JSON file.')
-
+        ssid = json_data.get('ssid', '')
+        password = json_data.get('password', '')
+    
+        if ssid and password and ssid!=ssid_old and password!=password_old:
+            turn_on_hotspot(ssid, password)
+        else:
+            print('SSID or password missing in the JSON file.')
+        ssid_old=ssid
+        password_old=password
 
 
