@@ -3,64 +3,64 @@
         {
             "wifi_nodes":[
                 {
-                    "node1":"unconnected"
+                    "node1":"connected"
                 },
                 {
-                    "node2":"unconnected"
+                    "node2":"connected"
                 },
                 {
-                    "node3":"unconnected"
+                    "node3":"connected"
                 },
                 {
-                    "node4":"unconnected"
+                    "node4":"connected"
                 },
                 {
-                    "node5":"unconnected"
+                    "node5":"connected"
                 },
                 {
-                    "node6":"unconnected"
+                    "node6":"connected"
                 },
                 {
-                    "node7":"unconnected"
+                    "node7":"connected"
                 },
                 {
-                    "node8":"unconnected"
+                    "node8":"connected"
                 }
             ]
         },
         {
             "lora_nodes":[
                 {
-                    "node1":"unconnected"
+                    "node1":"connected"
                 },
                 {
-                    "node2":"unconnected"
+                    "node2":"connected"
                 },
                 {
-                    "node3":"unconnected"
+                    "node3":"connected"
                 },
                 {
-                    "node4":"unconnected"
+                    "node4":"connected"
                 },
                 {
-                    "node5":"unconnected"
+                    "node5":"connected"
                 },
                 {
-                    "node6":"unconnected"
+                    "node6":"connected"
                 },
                 {
-                    "node7":"unconnected"
+                    "node7":"connected"
                 },
                 {
-                    "node8":"unconnected"
+                    "node8":"connected"
                 }
             ]
         },
         {
-            "nr_5g":"unconnected"
+            "nr_5g":"connected"
         },
         {
-            "hotspot":"off"
+            "hotspot":"on"
         }
     ]
 }
