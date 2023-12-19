@@ -1,0 +1,28 @@
+{
+  "devices": [
+    {
+      "status": "connected"
+    },
+    {
+      "status": "unconnected"
+    },
+    {
+      "status": "unconnected"
+    },
+    {
+      "status": "unconnected"
+    },
+    {
+      "status": "unconnected"
+    },
+    {
+      "status": "unconnected"
+    },
+    {
+      "status": "unconnected"
+    },
+    {
+      "status": "unconnected"
+    }
+  ]
+}
