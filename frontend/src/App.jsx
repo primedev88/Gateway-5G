@@ -28,25 +28,23 @@ const App = () => {
 
   const handleSubmit = ()=>{
     // Send the data to the backend
-    fetch('http://10.13.3.105:8000/update-credentials', {
+    fetch('http://10.61.19.111:8000/update-credentials', {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ ssid, password }),
-  })
-  .then(response => response.json())
-  .then(data => {
+    })
+    .then(response => response.json())
+    .then(data => {
       console.log('Success:', data);
+      setModalOpen(false);
       // You can add additional logic here based on the response from the server
-  })
-  .catch((error) => {
+    })
+    .catch((error) => {
       console.error('Error:', error);
-  });
+    });
   }
-  
-
-
   const openModal = () =>{
     setModalOpen(true);
   }
@@ -77,9 +75,10 @@ const App = () => {
         <div className="nr-5g">
           <div className="info-5g">
             <div className="logo">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="36" viewBox="0 0 8 6" fill="none">
+              {/* <svg xmlns="http://www.w3.org/2000/svg" width="48" height="36" viewBox="0 0 8 6" fill="none">
                 <path d="M8 4.8V2.4H6.10526V3.6H6.73684V4.8H5.47368V1.2H8V0H5.47368C5.13867 0 4.81738 0.126428 4.5805 0.351472C4.34361 0.576516 4.21053 0.88174 4.21053 1.2V4.8C4.21053 5.11826 4.34361 5.42348 4.5805 5.64853C4.81738 5.87357 5.13867 6 5.47368 6H6.73684C7.07185 6 7.39314 5.87357 7.63003 5.64853C7.86692 5.42348 8 5.11826 8 4.8ZM2.94737 0H0V3V3.6H1.68421V4.8H0V6H2.31579C2.48329 6 2.64394 5.93679 2.76238 5.82426C2.88083 5.71174 2.94737 5.55913 2.94737 5.4V3C2.94737 2.84087 2.88083 2.68826 2.76238 2.57574C2.64394 2.46321 2.48329 2.4 2.31579 2.4H1.26316V1.2H2.94737V0Z" fill="#ACEEA7"/>
-              </svg>
+              </svg> */}
+              {/* <img src="./assets/removebg.png" alt="" /> */}
             </div>
             <div className="connect" style={{backgroundColor:(nr_5g.status=='unconnected')? '#DAEDFF':'#8BFF6D'}}>
               {nr_5g.status=='unconnected' ? 'connect':'connected'}
@@ -123,7 +122,6 @@ const App = () => {
                 </svg>
               </div>
             </div>
-            <div className="divider"></div>
             <div className="w-node2">
               <div className="node1" style={{backgroundColor:(wifi.devices[4].status=='unconnected')? '#DAEDFF':'#8BFF6D'}}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 5 5" fill="none">
@@ -176,7 +174,6 @@ const App = () => {
                 </svg>
               </div>
             </div>
-            <div className="divider"></div>
             <div className="l-node2">
               <div className="node1" style={{backgroundColor:(lora.devices[4].status=='unconnected')? '#DAEDFF':'#8BFF6D'}}>
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 5 5" fill="none">
@@ -207,11 +204,15 @@ const App = () => {
         isModalOpen && (
           <div className="modal">
             <div className="hotspot-settings">
-              <div className="cancel" onClick={closeModal}>
-                <RxCross2 size='20' color='#D0FFFC'/>
+              <div className="cancel-contain">
+                <div className="con"></div>
+                <div className="cancel" onClick={closeModal}>
+                  <RxCross2 size='20' color='#D0FFFC'/>
                 </div>
+              </div>
               <div className="SSID">
                 <div className="txt">SSID:</div>
+                <div className="input-space">
                 <input
                   className="input"
                   type="text"
@@ -219,6 +220,10 @@ const App = () => {
                   value={ssid}
                   onChange={handleSSIDChange}
                  />
+                 <div className="space">
+
+                 </div>
+                </div>
               </div>
               <div className="Password">
                 <div className="txt">Key:</div>
