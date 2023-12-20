@@ -8,7 +8,7 @@ function ToggleSlider(props) {
         <input 
             type="checkbox" 
             id="toggle"
-            checked={!isHotspotOn}
+            checked={isHotspotOn}
             onChange={(event)=>toggleHotspot(event)}
         />
         <label htmlFor="toggle" className="slider" />

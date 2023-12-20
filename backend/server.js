@@ -37,9 +37,7 @@ function turnOnHotspot(ssid, password) {
       console.error(`Error turning on hotspot: ${error.message}`);
       return;
     }
-    const isHotspotOn = true;
-    const data2 = {isHotspotOn};
-    fs.writeFileSync('./hotspot.json', JSON.stringify(data2));
+    
     console.log('Hotspot turned on successfully!');
     
     setInterval(getConnectedDevices, 500);

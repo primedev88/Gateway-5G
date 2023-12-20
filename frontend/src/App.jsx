@@ -15,23 +15,20 @@ const App = () => {
   const [ssid, setSSID] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  
   const [isHotspotOn, setIsHotspotOn] = useState(false);
 
   const toggleHotspot = () => {
-    setIsHotspotOn(!isHotspotOn);
-    console.log(isHotspotOn);
     fetch('http://10.61.19.111:8000/toggle-hotspot',{
       method:'POST',
       headers:{
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({isHotspotOn}),
+      body: JSON.stringify({isHotspotOn: !isHotspotOn}),
     })
     .then(response => response.json())
     .then(data => {
       console.log('Success:', data);
-      
+      setIsHotspotOn(!isHotspotOn);
     })
     .catch(error => {
       console.error('Error',error);
