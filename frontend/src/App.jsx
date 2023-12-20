@@ -1,19 +1,42 @@
 import  { useState } from 'react';
 import './App.css'
 import { TbSettings2 } from "react-icons/tb";
-import { MdWifiTethering } from "react-icons/md";
+//import { MdWifiTethering } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { PiEye,PiEyeClosed } from "react-icons/pi";
 import wifi from '../wifi.json';
-import hotspot from '../hotspot.json';
+//import hotspot from '../hotspot.json';
 import nr_5g from '../nr_5g.json'
 import lora from '../lora.json'
+import ToggleSlider from './Components/ToggleSlider';
 
 const App = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [ssid, setSSID] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState('false');
+  const [showPassword, setShowPassword] = useState(false);
+  
+  const [isHotspotOn, setIsHotspotOn] = useState(false);
+
+  const toggleHotspot = () => {
+    setIsHotspotOn(!isHotspotOn);
+    console.log(isHotspotOn);
+    fetch('http://10.61.19.111:8000/toggle-hotspot',{
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({isHotspotOn}),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      
+    })
+    .catch(error => {
+      console.error('Error',error);
+    });
+  };
 
   const togglePasswordVisibility = () =>{
     setShowPassword(!showPassword);
@@ -25,9 +48,10 @@ const App = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
+  
   const handleSubmit = ()=>{
     // Send the data to the backend
+    if(isHotspotOn) setIsHotspotOn(!isHotspotOn)
     fetch('http://10.61.19.111:8000/update-credentials', {
       method: 'POST',
       headers: {
@@ -90,7 +114,8 @@ const App = () => {
               <TbSettings2 size="30" color='#FFFFFF'/>
             </div>
             <div className="hotspot">
-              <MdWifiTethering size="30" color={hotspot.status=='on'? '#8BFF6D':'#FFFFFF'}/>
+              {/* <MdWifiTethering size="30" color={hotspot.status=='on'? '#8BFF6D':'#FFFFFF'}/> */}
+              <ToggleSlider isHotspotOn={isHotspotOn} toggleHotspot={toggleHotspot}/>
             </div>
           </div>
         </div>

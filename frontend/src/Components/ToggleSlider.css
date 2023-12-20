@@ -1,0 +1,41 @@
+.toggle-slider {
+    position: relative;
+    width: 7vh;
+    height: 3.5vh;
+  }
+  
+  .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: 2.5vh;
+    width: 2.5vh;
+    left: 0.5vh;
+    bottom: 0.5vh;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+  
+  input[type='checkbox'] {
+    display: none;
+  }
+  
+  input[type='checkbox']:checked + .slider {
+    background-color: #2196f3;
+  }
+  
+  input[type='checkbox']:checked + .slider:before {
+    transform: translateX(3.5vh);
+  }

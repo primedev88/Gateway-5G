@@ -264,7 +264,6 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  cursor: pointer;
 }
 .wifi-nodes{
   background-color: #2C5274;

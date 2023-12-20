@@ -5,8 +5,8 @@ const fs = require('fs');
 const {exec} = require('child_process');
 const wifi_json='../frontend/wifi.json';
 //const lora_json='../frontend/lora.json';
-const nr5g_json='../frontend/nr_5g.json';
-const hotspot_json='../frontend/hotspot.json';
+// const nr5g_json='../frontend/nr_5g.json';
+// const hotspot_json='../frontend/hotspot.json';
 
 
 const app = express();
@@ -14,6 +14,20 @@ const port = 8000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+
+function turnOffHotspot(){
+  const command = 'nmcli connection down Hotspot';
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error turning off hotspot: ${error.message}`);
+      return;
+    }
+
+    console.log('Hotspot turned off successfully!');
+  });
+}
 
 function turnOnHotspot(ssid, password) {
   const command = `nmcli device wifi hotspot ifname wlp0s20f3 con-name Hotspot ssid ${ssid} password ${password}`;
@@ -23,7 +37,9 @@ function turnOnHotspot(ssid, password) {
       console.error(`Error turning on hotspot: ${error.message}`);
       return;
     }
-
+    const isHotspotOn = true;
+    const data2 = {isHotspotOn};
+    fs.writeFileSync('./hotspot.json', JSON.stringify(data2));
     console.log('Hotspot turned on successfully!');
     
     setInterval(getConnectedDevices, 500);
@@ -92,11 +108,28 @@ app.post('/update-credentials', (req, res) => {
     const { ssid, password } = req.body;
     const data = { ssid, password };
     fs.writeFileSync('./data.json', JSON.stringify(data));
+    
     turnOnHotspot(ssid,password);
     res.json({ message: 'Credentials updated successfully' });
 });
 
+app.post('/toggle-hotspot', (req, res) => {
+  const { isHotspotOn } = req.body;
+  const data = {isHotspotOn};
+  fs.writeFileSync('./hotspot.json', JSON.stringify(data));
+  if (isHotspotOn) {
+    turnOnHotspot();
+  } else {
+    turnOffHotspot();
+  }
+
+  res.json({ message: 'Toggle request received successfully' });
+});
+
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+
 
