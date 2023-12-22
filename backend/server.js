@@ -39,7 +39,6 @@ function turnOnHotspot(ssid, password) {
     }
     
     console.log('Hotspot turned on successfully!');
-    
     setInterval(getConnectedDevices, 500);
   });
 }
@@ -116,7 +115,16 @@ app.post('/toggle-hotspot', (req, res) => {
   const data = {isHotspotOn};
   fs.writeFileSync('./hotspot.json', JSON.stringify(data));
   if (isHotspotOn) {
-    turnOnHotspot();
+    fs.readFile('./data.json','utf8',(err,data1)=>{
+      if(err){
+        console.error(`Error reading JSON file: ${err.message}`);
+        return;
+      }
+      const credentials = JSON.parse(data1);
+      const ssid = credentials.ssid;
+      const password = credentials.password;
+      turnOnHotspot(ssid,password);
+    })
   } else {
     turnOffHotspot();
   }

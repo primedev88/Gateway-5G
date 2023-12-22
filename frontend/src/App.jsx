@@ -18,7 +18,7 @@ const App = () => {
   const [isHotspotOn, setIsHotspotOn] = useState(false);
 
   const toggleHotspot = () => {
-    fetch('http://10.61.19.111:8000/toggle-hotspot',{
+    fetch('http://192.168.29.124:8000/toggle-hotspot',{
       method:'POST',
       headers:{
         'Content-Type': 'application/json',
@@ -48,8 +48,8 @@ const App = () => {
   
   const handleSubmit = ()=>{
     // Send the data to the backend
-    if(isHotspotOn) setIsHotspotOn(!isHotspotOn)
-    fetch('http://10.61.19.111:8000/update-credentials', {
+    if(!isHotspotOn) setIsHotspotOn(!isHotspotOn)
+    fetch('http://192.168.29.124:8000/update-credentials', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
