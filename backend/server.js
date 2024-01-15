@@ -5,8 +5,9 @@ const fs = require('fs');
 const {exec} = require('child_process');
 const wifi_json='../frontend/wifi.json';
 //const lora_json='../frontend/lora.json';
-// const nr5g_json='../frontend/nr_5g.json';
+const nr5g_json='../frontend/nr_5g.json';
 // const hotspot_json='../frontend/hotspot.json';
+
 
 
 const app = express();
@@ -14,6 +15,32 @@ const port = 8000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+
+function updateConnectivityStatus(isConnected) {
+  const data = { status: isConnected ? 'connected' : 'unconnected' };
+  fs.writeFile(nr5g_json, JSON.stringify(data, null, 4), (err) => {
+      if (err) {
+          console.error('Error writing file:', err);
+          return;
+      }
+      console.log(`Connectivity status updated: ${isConnected ? 'online' : 'offline'}`);
+  });
+}
+
+exec('nmcli general status', (error, stdout, stderr) => {
+  if (error) {
+      console.error(`Error executing nmcli: ${error}`);
+      return;
+  }
+  if (stderr) {
+      console.error(`Error output from nmcli: ${stderr}`);
+      return;
+  }
+
+  const isConnected = stdout.includes('full');
+  updateConnectivityStatus(isConnected);
+});
 
 
 function turnOffHotspot(){
