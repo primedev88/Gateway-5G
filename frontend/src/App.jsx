@@ -1,8 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 import { TbSettings2 } from "react-icons/tb";
-// import { RxCross2 } from "react-icons/rx";
-// import { PiEye,PiEyeClosed } from "react-icons/pi";
 import wifi from "../wifi.json";
 import nr_5g from "../nr_5g.json";
 import lora from "../lora.json";
@@ -35,7 +33,6 @@ const App = () => {
   };
 
   const handleFormSubmit = (ssid, password) => {
-    // Send the data to the backend
     if (!isHotspotOn) setIsHotspotOn(!isHotspotOn);
     fetch(`${ip}/update-credentials`, {
       method: "POST",
@@ -48,7 +45,6 @@ const App = () => {
       .then((data) => {
         console.log("Success:", data);
         setModalOpen(false);
-        // You can add additional logic here based on the response from the server
       })
       .catch((error) => {
         console.error("Error:", error);
