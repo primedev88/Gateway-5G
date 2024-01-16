@@ -1,0 +1,9 @@
+.node{
+  height: 13vh;
+  width: 13vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

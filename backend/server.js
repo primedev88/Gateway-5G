@@ -4,18 +4,13 @@ const cors = require('cors');
 const fs = require('fs');
 const {exec} = require('child_process');
 const wifi_json='../frontend/wifi.json';
-//const lora_json='../frontend/lora.json';
 const nr5g_json='../frontend/nr_5g.json';
-// const hotspot_json='../frontend/hotspot.json';
-
-
 
 const app = express();
 const port = 8000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
 
 function updateConnectivityStatus(isConnected) {
   const data = { status: isConnected ? 'connected' : 'unconnected' };

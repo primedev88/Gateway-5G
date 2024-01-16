@@ -17,4 +17,4 @@ function ToggleSlider(props) {
 }
 
 export default ToggleSlider;
-ToggleSlider.propTypes = {isHotspotOn: propTypes.boolean, toggleHotspot: propTypes.func}
+ToggleSlider.propTypes = {isHotspotOn: propTypes.bool, toggleHotspot: propTypes.func}
