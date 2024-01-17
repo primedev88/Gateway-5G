@@ -1,8 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { TbSettings2 } from "react-icons/tb";
-import wifi from "../wifi.json";
-import nr_5g from "../nr_5g.json";
 import lora from "../lora.json";
 import ToggleSlider from "./Components/ToggleSlider/ToggleSlider";
 import Node from "./Components/WifiNode/Node";
@@ -12,7 +10,36 @@ import Credential from "./Components/Credential/Credential";
 const App = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isHotspotOn, setIsHotspotOn] = useState(false);
+  const [isConnected,setIsConnected] = useState(false);
+  const [deviceStatus, setDeviceStatus] = useState({devices:Array.from({ length: 8 }, () =>({ status:'unconnected'}))})
   const ip = "http://localhost:8000";
+
+  useEffect(()=>{
+    const fetchStatus = async () => {
+      try {
+        const response = await fetch(`${ip}/status`);
+        const data = await response.json();
+        setIsConnected(data.isConnected);
+      } catch (error) {
+        console.error('Error fetching status:',error);
+      }
+    };
+    setInterval(fetchStatus,3000);
+  },[]);
+
+  useEffect(()=>{
+    const fetchConnectedDevices = async () => {
+      try {
+        const response = await fetch(`${ip}/get-connectivity-status`);
+        const dataConnected = await response.json();
+        
+        setDeviceStatus(dataConnected);
+      } catch (error) {
+        console.error('Error fetching data:',error);
+      }
+    }
+    setInterval(fetchConnectedDevices,3000);
+  },[]);
 
   const toggleHotspot = () => {
     fetch(`${ip}/toggle-hotspot`, {
@@ -58,7 +85,7 @@ const App = () => {
   };
   let wifi_count = 0;
   for (let i = 0; i < 8; i++) {
-    let obj = Object.values(wifi.devices[i])[0];
+    let obj = Object.values(deviceStatus.devices[i])[0];
 
     if (obj == "connected") {
       wifi_count++;
@@ -84,10 +111,10 @@ const App = () => {
                 className="connect"
                 style={{
                   backgroundColor:
-                    nr_5g.status == "unconnected" ? "#DAEDFF" : "#8BFF6D",
+                  !isConnected ? "#DAEDFF" : "#8BFF6D",
                 }}
               >
-                {nr_5g.status == "unconnected" ? "connect" : "connected"}
+                {isConnected ? "connected" : "connect"}
               </div>
               <div className="info"></div>
             </div>
@@ -109,7 +136,7 @@ const App = () => {
               <div className="rem">rem: {8 - wifi_count}</div>
             </div>
             <div className="nodes-divider">
-              {wifi.devices.map((device, index) => (
+              {deviceStatus.devices.map((device, index) => (
                 <Node key={index} bgColor={(device.status === 'unconnected') ? '#DAEDFF' : '#8BFF6D'} />
               ))}
             </div>
