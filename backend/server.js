@@ -10,7 +10,19 @@ const port = 8000;
 app.use(cors());
 app.use(bodyParser.json());
 
-const adapterName='wlo1';   // Run command: iwconfig and replace the adapter name
+let adapterName='';   // Run command: iwconfig and replace the adapter name
+
+exec('iwconfig',(error,stdout,stderr)=>{
+  if(error){
+    console.error('Error in executing command iwconfig ',error);
+  }
+  const lines = stdout.split('\n');
+  lines.forEach((line)=>{
+    if(line.includes('IEEE 802.11')){
+      adapterName = line.split(' ')[0];
+    }
+  })
+})
 
 function turnOffHotspot(){
   const command = 'nmcli connection down Hotspot';
@@ -20,7 +32,7 @@ function turnOffHotspot(){
       console.error(`Error turning off hotspot: ${error.message}`);
       return;
     }
-
+    hotspot_status=false;
     console.log('Hotspot turned off successfully!');
   });
 }
@@ -29,13 +41,26 @@ function turnOnHotspot(ssid, password) {
   const command = `nmcli device wifi hotspot ifname ${adapterName} con-name Hotspot ssid ${ssid} password ${password}`;
 
   exec(command, (error, stdout, stderr) => {
+    let hotspot_status;
     if (error) {
+      hotspot_status=false;
       console.error(`Error turning on hotspot: ${error.message}`);
-      return;
     }
-    console.log('Hotspot turned on successfully!');
+    else{
+      hotspot_status=true;
+      console.log('Hotspot turned on successfully!');
+    }
+    console.log(hotspot_status)
+    function getStatus(res){
+      res.json({hotspot_status});
+    }
+    
   });
 }
+
+app.get('/HotspotStatus',(req,res)=>{
+  getStatus(res);
+})
 
 function getConnectedDevices(res){
   const devicesCommand = `iw dev ${adapterName} station dump`;
@@ -46,8 +71,10 @@ function getConnectedDevices(res){
       return;
     }
     const connectedDevices = parseConnectedDevices(stdout);
-    console.log(`Number of connected devices: ${connectedDevices.length}`);
-    console.log('Connected devices: ',connectedDevices);
+    if(connectedDevices.length>0){
+      console.log(`Number of connected devices: ${connectedDevices.length}`);
+      console.log('Connected devices: ',connectedDevices);
+    }
     const jsonData = {
       devices: Array.from({ length: 8 }, (_, index) => ({
         status: index < connectedDevices.length ? 'connected' : 'unconnected',
@@ -69,6 +96,7 @@ function parseConnectedDevices(output){
   });
   return connectedDevices;
 }
+
 
 app.get('/get-connectivity-status',(req,res) => {
   getConnectedDevices(res);
