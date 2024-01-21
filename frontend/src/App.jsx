@@ -24,7 +24,7 @@ const App = () => {
         console.error('Error fetching status:',error);
       }
     };
-    setInterval(fetchStatus,25000);
+    setInterval(fetchStatus,3000);
   },[]);
 
   useEffect(()=>{
@@ -38,24 +38,10 @@ const App = () => {
         console.error('Error fetching data:',error);
       }
     }
-    setInterval(fetchConnectedDevices,10000);
+    setInterval(fetchConnectedDevices,3000);
   },[]);
-  const fetchHotspot = async () => {
-    try {
-      const response = await fetch(`${ip}/HotspotStatus`);
-      if (!response.ok) {
-        // Handle HTTP error
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log(data.hotspot_status)
-      setIsHotspotOn(data.hotspot_status);
-    } catch (error) {
-      console.error('Error fetching status:', error.message);
-      // Handle other errors or rethrow if needed
-    }
-  }
-  const toggleHotspot = async () => {
+
+  const toggleHotspot = () => {
     fetch(`${ip}/toggle-hotspot`, {
       method: "POST",
       headers: {
@@ -66,7 +52,7 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        fetchHotspot();
+        setIsHotspotOn(!isHotspotOn);
       })
       .catch((error) => {
         console.error("Error", error);
