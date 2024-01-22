@@ -1,22 +1,10 @@
 // This module returns the number of connected devices
 
 const { exec } = require('child_process');
+const {getAdapterName} = require('../utils/adapter')
 
-let adapterName = '';
-
-exec('iwconfig', (error, stdout, stderr) => {
-    if (error) {
-        console.error('Error in executing command iwconfig ', error);
-    }
-    const lines = stdout.split('\n');
-    lines.forEach((line) => {
-        if (line.includes('IEEE 802.11')) {
-            adapterName = line.split(' ')[0];
-        }
-    })
-})
-
-const getConnectedDevices = (res) => {
+const getConnectedDevices = async (res) => {
+    let adapterName = await getAdapterName();
     const devicesCommand = `iw dev ${adapterName} station dump`;
 
     exec(devicesCommand, (error, stdout, stderr) => {

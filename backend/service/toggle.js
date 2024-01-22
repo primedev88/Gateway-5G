@@ -1,9 +1,11 @@
+//This module handles the toggle button for hotspot
+
 const {exec} = require('child_process');
 const fs = require('fs');
-const { turnOnHotspot } = require('../utils/utils')
+const { turnOnHotspot } = require('../utils/upHotspot')
 
 const turnOffHotspot = () => {
-  const command = 'nmcli connection down Hotspot';
+  const command = 'nmcli radio wifi off';
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
