@@ -52,7 +52,9 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        setIsHotspotOn(!isHotspotOn);
+        if(data.successUp || data.successDown){
+          setIsHotspotOn(!isHotspotOn);
+        }
       })
       .catch((error) => {
         console.error("Error", error);
@@ -60,7 +62,7 @@ const App = () => {
   };
 
   const handleFormSubmit = (ssid, password) => {
-    if (!isHotspotOn) setIsHotspotOn(!isHotspotOn);
+    // if (!isHotspotOn) setIsHotspotOn(!isHotspotOn);
     fetch(`${ip}/update-credentials`, {
       method: "POST",
       headers: {
@@ -71,6 +73,9 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        if(data.successUp){
+          setIsHotspotOn(!isHotspotOn)
+        }
         setModalOpen(false);
       })
       .catch((error) => {

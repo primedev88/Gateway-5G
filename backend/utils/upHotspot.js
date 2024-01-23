@@ -1,27 +1,33 @@
 // This module turns on the hotspot
-
-const {exec} = require('child_process');
-const {getAdapterName} = require('./adapter')
-
-
+const { promisify } = require('util');
+const execAsync = promisify(require('child_process').exec);
+const { getAdapterName } = require('./adapter');
 
 const turnOnHotspot = async (ssid, password) => {
-    let adapterName = await getAdapterName();
-    exec('nmcli radio wifi on',(error,stdout,stderr)=>{
-        if (error) {
-            console.error(`Error turning on hotspot: ${error.message}`);
-            return;
-        }
-    })
-    const command = `nmcli device wifi hotspot ifname ${adapterName} con-name Hotspot ssid ${ssid} password ${password}`;
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-        console.error(`Error turning on hotspot: ${error.message}`);
-        return;
-        }
+    try {
+        let adapterName = await getAdapterName();
+
+        // Enable Wi-Fi
+        await execAsync('nmcli radio wifi on');
+
+        // Add a short delay (1 second) before creating the hotspot
+        await delay(1000);
+
+        // Create hotspot
+        const createCommand = `nmcli device wifi hotspot ifname ${adapterName} con-name Hotspot ssid ${ssid} password ${password}`;
+        await execAsync(createCommand);
         console.log('Hotspot turned on successfully!');
-    });
-}
+        return true;
+        
+    } catch (error) {
+        console.error(`Error turning on hotspot: ${error.message}`);
+        return false;
+    }
+};
+
+const delay = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
 
 module.exports = {
     turnOnHotspot
