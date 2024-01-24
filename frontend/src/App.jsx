@@ -52,7 +52,7 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        if(data.successUp || data.successDown){
+        if(data.result){
           setIsHotspotOn(!isHotspotOn);
         }
       })
@@ -73,7 +73,7 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        if(data.successUp){
+        if(data.result){
           setIsHotspotOn(!isHotspotOn)
         }
         setModalOpen(false);

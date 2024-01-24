@@ -20,6 +20,7 @@ const turnOnHotspot = async (ssid, password) => {
         return true;
         
     } catch (error) {
+        await execAsync('nmcli radio wifi off');
         console.error(`Error turning on hotspot: ${error.message}`);
         return false;
     }

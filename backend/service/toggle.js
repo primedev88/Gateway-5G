@@ -24,8 +24,6 @@ const turnOffHotspot = () => {
 
 const handleToggle = async (req, res) => {
   const { isHotspotOn } = req.body;
-  let successUp = '';
-  let successDown = '';
   if (isHotspotOn) {
     fs.readFile('./data.json', 'utf8', async (err, data1) => {
       if (err) {
@@ -35,12 +33,14 @@ const handleToggle = async (req, res) => {
       const credentials = JSON.parse(data1);
       const ssid = credentials.ssid;
       const password = credentials.password;
-      successUp = await turnOnHotspot(ssid, password);
+      let result = await turnOnHotspot(ssid, password);
+      res.json({ message: 'Toggle request received successfully', result});
     })
   } else {
-    successDown = await turnOffHotspot();
+    let result = await turnOffHotspot();
+    res.json({ message: 'Toggle request received successfully', result});
   }
-  res.json({ message: 'Toggle request received successfully', successUp, successDown });
+  
 }
 
 module.exports = {

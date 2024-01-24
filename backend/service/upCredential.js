@@ -7,8 +7,8 @@ const handleSubmit = async (req,res) => {
     const { ssid, password } = req.body;
     const data = { ssid, password };
     fs.writeFileSync('./data.json', JSON.stringify(data));
-    const successUp = await turnOnHotspot(ssid,password);
-    res.json({ message: 'Credentials updated successfully',successUp });
+    let result = await turnOnHotspot(ssid,password);
+    res.json({ message: 'Credentials updated successfully',result });
 }
 
 module.exports={
