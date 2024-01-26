@@ -13,8 +13,10 @@ const getConnectedDevices = async (res) => {
             return;
         }
         const connectedDevices = parseConnectedDevices(stdout);
-        console.log(`Number of connected devices: ${connectedDevices.length}`);
-        console.log('Connected devices: ', connectedDevices);
+        if(connectedDevices.length>0){
+            console.log(`Number of connected devices: ${connectedDevices.length}`);
+            console.log('Connected devices: ', connectedDevices);
+        }
         const jsonData = {
             devices: Array.from({ length: 8 }, (_, index) => ({
                 status: index < connectedDevices.length ? 'connected' : 'unconnected',
