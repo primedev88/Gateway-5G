@@ -12,6 +12,7 @@ const App = () => {
   const [isHotspotOn, setIsHotspotOn] = useState(false);
   const [isConnected,setIsConnected] = useState(false);
   const [deviceStatus, setDeviceStatus] = useState({devices:Array.from({ length: 8 }, () =>({ status:'unconnected'}))})
+  const [loraData, setLoraData]=useState({"sensor_id":[]});
   const ip = "http://localhost:8000";
 
   useEffect(()=>{
@@ -26,7 +27,19 @@ const App = () => {
     };
     setInterval(fetchStatus,3000);
   },[]);
-
+  useEffect(()=>{
+    const fetchLoraDevices = async () => {
+      try{
+        const response = await fetch(`${ip}/loraStatus`);
+        const data = await response.json();
+        setLoraData(data);
+        console.log(data);
+      } catch (error) {
+        console.error('Error fetching status:',error)
+      }
+    };
+    setInterval(fetchLoraDevices,3000);
+  },[])
   useEffect(()=>{
     const fetchConnectedDevices = async () => {
       try {
