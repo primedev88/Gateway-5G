@@ -12,7 +12,7 @@ const App = () => {
   const [isHotspotOn, setIsHotspotOn] = useState(false);
   const [isConnected,setIsConnected] = useState(false);
   const [deviceStatus, setDeviceStatus] = useState({devices:Array.from({ length: 8 }, () =>({ status:'unconnected'}))})
-  const [loraData, setLoraData]=useState({"sensor_id":[]});
+  const [loraData, setLoraData]=useState([]);
   const ip = "http://localhost:8000";
 
   useEffect(()=>{
@@ -32,8 +32,18 @@ const App = () => {
       try{
         const response = await fetch(`${ip}/loraStatus`);
         const data = await response.json();
-        setLoraData(data);
-        console.log(data);
+        let num=data.sensor_id;
+        if(num.length>8){
+       	   for(let i=9;i<num.length;i++){
+       	       num.pop();
+       	   }
+        }
+        
+        num=num.reverse()
+        
+        console.log("43 ",num);
+        setLoraData(num);
+        
       } catch (error) {
         console.error('Error fetching status:',error)
       }
@@ -111,13 +121,11 @@ const App = () => {
   }
   let lora_count = 0;
   for (let i = 0; i < 8; i++) {
-    let obj = Object.values(lora.devices[i])[0];
-
-    if (obj == "connected") {
-      lora_count++;
+    if(typeof(loraData[i])=='string'){
+    	lora_count++;
     }
   }
-
+  console.log("127 ",lora_count);
   return (
     <>
       <div className="main_screen">
@@ -165,8 +173,8 @@ const App = () => {
               <div className="rem">rem: {8 - lora_count}</div>
             </div>
             <div className="nodes-divider">
-              {lora.devices.map((device,index)=>(
-                <LoraNode key={index} bgColor={(device.status === 'unconnected') ? '#DAEDFF' : '#8BFF6D'}/>
+              {loraData.map((e,index)=>(
+                <LoraNode key={index} bgColor={(typeof(e) != 'string') ? '#DAEDFF' : '#8BFF6D'} id={typeof(e)=='string'?e:''}/>
               ))}
             </div>
           </div>

@@ -3,6 +3,7 @@ import propTypes from 'prop-types'
 
 function LoraNode(props) {
     const {bgColor}=props;
+    const {id}=props;
   return (
     <div
       className="node"
@@ -20,6 +21,9 @@ function LoraNode(props) {
           fill="#03334E"
         />
       </svg>
+      <div>
+      {id}
+      </div>
     </div>
   );
 }
