@@ -1,47 +1,40 @@
-const dgram = require('dgram');
+const net = require('net');
 
-const handleLoraDevices = (req, res) => {
-  // Create a UDP socket
-  const server = dgram.createSocket('udp4');
+function handleLoraDevices(req, res) {
+    // Create a TCP socket to connect to the local address where the data is dumped
+    const client = net.createConnection({ port: 12345, host: '127.0.0.1' }, () => {
+        console.log('Connected to data dump application');
 
-  // Listen for messages on the specified port
-  const PORT = 12345;
+        // When connection is established, start reading data
+        client.on('data', (data) => {
+            // Assuming the data is text, you may need to parse it based on your format
+            const responseData = data.toString();
 
-  server.on('error', (err) => {
-    console.log(`Server error:\n${err.stack}`);
-    server.close();
-  });
+            // Send the fetched data as response to the frontend
+            res.setHeader('Content-Type', 'text/plain');
+            res.end(responseData);
 
-  server.on('message', (msg, rinfo) => {
-    console.log(`Received message from ${rinfo.address}:${rinfo.port}`);
-    console.log(`Message: ${msg}`);
+            // Close the connection after sending data
+            client.end();
+        });
+    });
 
-    // Here you can parse the message and extract the sensor id
-    try {
-      const data = JSON.parse(msg);
-      if (data.sensor_id) {
-        console.log(`Sensor ID: ${data.sensor_id}`);
-        // Send the sensor ID back to the frontend
-        res.send({ sensor_id: data.sensor_id });
-      } else {
-        console.log('No sensor ID found in the received data.');
-        res.status(400).send('No sensor ID found in the received data.');
-      }
-    } catch (error) {
-      console.log('Error parsing JSON:', error);
-      res.status(500).send('Error parsing JSON.');
-    }
-  });
+    // Handle errors
+    client.on('error', (err) => {
+        console.error('Error connecting to data dump application:', err);
+        res.statusCode = 500;
+        res.end('Error connecting to data dump application');
+    });
+}
 
-  server.on('listening', () => {
-    const address = server.address();
-    console.log(`Server listening on ${address.address}:${address.port}`);
-  });
+// Example usage
+// Assuming you're using Express.js or some other framework
+// app.get('/getLoraStatus', handleLoraDevices);
 
-  // Bind the server to the specified port and address
-  server.bind(PORT);
-};
+// If you're using plain Node.js HTTP server
+// const server = http.createServer(handleLoraDevices);
+// server.listen(8000);
 
-module.exports = {
+module.exports={
   handleLoraDevices
-};
+}
